@@ -433,7 +433,7 @@ class AllEndpointsIT {
           surveyDto.setName("Test");
           surveyDto.setSampleSeparator(',');
           surveyDto.setSampleValidationRules(
-              new ColumnValidator[] {new ColumnValidator("foo", false, new Rule[] {})});
+              new ColumnValidator[] {new ColumnValidator("foo", new Rule[] {})});
           surveyDto.setSampleDefinitionUrl("http://foo.bar");
           return surveyDto;
         });

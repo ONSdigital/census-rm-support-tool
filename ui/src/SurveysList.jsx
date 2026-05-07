@@ -29,12 +29,10 @@ class SurveysList extends Component {
     validationError: false,
     newSurveyName: "",
     surveyMetadataError: false,
-    newSurveyValidationRules: "",
     newSurveySampleDefinitionUrl: "",
     newSurveyMetadata: "",
     newSurveyHeaderRow: true,
     newSurveySampleSeparator: ",",
-    validationRulesValidationError: false,
     sampleDefinitionUrlError: false,
     authorisedActivities: [],
   };
@@ -64,8 +62,6 @@ class SurveysList extends Component {
     this.setState({
       newSurveyName: "",
       validationError: false,
-      validationRulesValidationError: false,
-      newSurveyValidationRules: "",
       createSurveyDialogDisplayed: true,
       newSurveyHeaderRow: true,
       newSurveySampleSeparator: ",",
@@ -86,14 +82,6 @@ class SurveysList extends Component {
     this.setState({
       validationError: resetValidation,
       newSurveyName: event.target.value,
-    });
-  };
-
-  onNewSurveyValidationRulesChange = (event) => {
-    const resetValidation = !event.target.value.trim();
-    this.setState({
-      validationRulesValidationError: resetValidation,
-      newSurveyValidationRules: event.target.value,
     });
   };
 
@@ -135,22 +123,6 @@ class SurveysList extends Component {
       validationFailed = true;
     }
 
-    if (!this.state.newSurveyValidationRules.trim()) {
-      this.setState({ validationRulesValidationError: true });
-      validationFailed = true;
-    } else {
-      try {
-        const parsedJson = JSON.parse(this.state.newSurveyValidationRules);
-        if (!Array.isArray(parsedJson)) {
-          this.setState({ validationRulesValidationError: true });
-          validationFailed = true;
-        }
-      } catch (err) {
-        this.setState({ validationRulesValidationError: true });
-        validationFailed = true;
-      }
-    }
-
     if (!this.state.newSurveySampleDefinitionUrl.trim()) {
       this.setState({ sampleDefinitionUrlError: true });
       validationFailed = true;
@@ -179,7 +151,6 @@ class SurveysList extends Component {
 
     const newSurvey = {
       name: this.state.newSurveyName,
-      sampleValidationRules: JSON.parse(this.state.newSurveyValidationRules),
       sampleWithHeaderRow: this.state.newSurveyHeaderRow,
       sampleSeparator: this.state.newSurveySampleSeparator,
       sampleDefinitionUrl: this.state.newSurveySampleDefinitionUrl,
@@ -293,17 +264,6 @@ class SurveysList extends Component {
                     <MenuItem value={"|"}>Pipe</MenuItem>
                   </Select>
                 </FormControl>
-                <TextField
-                  id="validationRulesTextField"
-                  style={{ marginTop: 10 }}
-                  required
-                  multiline
-                  fullWidth={true}
-                  error={this.state.validationRulesValidationError}
-                  label="Validation rules"
-                  onChange={this.onNewSurveyValidationRulesChange}
-                  value={this.state.newSurveyValidationRules}
-                />
                 <TextField
                   id="surveyDefinitionURLTextField"
                   style={{ marginTop: 10 }}
