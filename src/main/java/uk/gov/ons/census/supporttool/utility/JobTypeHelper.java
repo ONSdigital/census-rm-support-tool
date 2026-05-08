@@ -7,14 +7,14 @@ import uk.gov.ons.census.common.model.entity.CollectionExercise;
 import uk.gov.ons.census.common.model.entity.JobType;
 import uk.gov.ons.census.common.model.entity.UserGroupAuthorisedActivityType;
 import uk.gov.ons.census.common.validation.ColumnValidator;
+import uk.gov.ons.census.common.validation.ColumnValidators;
 
 @Component
 public class JobTypeHelper {
   public String[] getExpectedColumns(JobType jobType, CollectionExercise collectionExercise) {
     switch (jobType) {
       case SAMPLE:
-        ColumnValidator[] columnValidators =
-            collectionExercise.getSurvey().getSampleValidationRules();
+        ColumnValidator[] columnValidators = ColumnValidators.getValidators();
         return Arrays.stream(columnValidators)
             .map(columnValidator -> columnValidator.getColumnName())
             .collect(Collectors.toList())

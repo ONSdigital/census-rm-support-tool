@@ -24,11 +24,9 @@ import {
   getActionRuleEmailPackCodesForSurvey,
   getActionRuleExportFilePackCodesForSurvey,
   getActionRuleSmsPackCodesForSurvey,
-  getSensitiveSampleColumns,
   getLocalDateTime,
 } from "./Utils";
 import { Link } from "react-router-dom";
-import JSONPretty from "react-json-pretty";
 import {
   ACTION_RULE_DESCRIPTION_MAX_LEN,
   ACTION_RULE_DESCRIPTION_TOO_LONG_ERROR_MSG,
@@ -39,10 +37,8 @@ class CollectionExerciseDetails extends Component {
     authorisedActivities: [],
     actionRules: [],
     exportFilePackCodes: [],
-    sensitiveSampleColumns: [],
     smsPackCodes: [],
     emailPackCodes: [],
-    collectionInstrumentRulesDisplayed: false,
     createActionRulesDialogDisplayed: false,
     rescheduleActionRulesDialogDisplayed: false,
     exportFilePackCodeValidationError: false,
@@ -82,7 +78,6 @@ class CollectionExerciseDetails extends Component {
     this.getExportFileTemplates(authorisedActivities);
     this.getSmsTemplates(authorisedActivities);
     this.getEmailTemplates(authorisedActivities);
-    this.getSensitiveSampleColumns(authorisedActivities);
   };
 
   getAuthorisedActivities = async () => {
@@ -98,14 +93,6 @@ class CollectionExerciseDetails extends Component {
     this.setState({ authorisedActivities: responseJson });
 
     return responseJson;
-  };
-
-  getSensitiveSampleColumns = async (authorisedActivities) => {
-    const sensitiveSampleColumns = await getSensitiveSampleColumns(
-      authorisedActivities,
-      this.props.surveyId,
-    );
-    this.setState({ sensitiveSampleColumns: sensitiveSampleColumns });
   };
 
   getCollectionExerciseDetails = async (authorisedActivities) => {
@@ -193,14 +180,6 @@ class CollectionExerciseDetails extends Component {
       this.props.surveyId,
     );
     this.setState({ emailPackCodes: packCodes });
-  };
-
-  openCollectionInstrumentRulesDialog = () => {
-    this.setState({ collectionInstrumentRulesDisplayed: true });
-  };
-
-  closeCollectionInstrumentRulesDialog = () => {
-    this.setState({ collectionInstrumentRulesDisplayed: false });
   };
 
   openCreateActionDialog = () => {
@@ -597,14 +576,6 @@ class CollectionExerciseDetails extends Component {
           <TableCell component="th" scope="row">
             {JSON.stringify(this.state.collectionExerciseDetails.metadata)}
           </TableCell>
-          <TableCell component="th" scope="row">
-            <Button
-              variant="contained"
-              onClick={() => this.openCollectionInstrumentRulesDialog()}
-            >
-              View Rules
-            </Button>
-          </TableCell>
         </TableRow>
       </>
     );
@@ -693,13 +664,6 @@ class CollectionExerciseDetails extends Component {
       </MenuItem>
     ));
 
-    const sensitiveSampleColumnsMenuItems =
-      this.state.sensitiveSampleColumns.map((column) => (
-        <MenuItem key={column} value={column} id={column}>
-          {column}
-        </MenuItem>
-      ));
-
     let allowedActionRuleTypeMenuItems = [];
     if (
       this.state.authorisedActivities.includes("CREATE_EXPORT_FILE_ACTION_RULE")
@@ -780,39 +744,11 @@ class CollectionExerciseDetails extends Component {
                     <TableCell>Start Date</TableCell>
                     <TableCell>End Date</TableCell>
                     <TableCell>Metadata</TableCell>
-                    <TableCell>Collection Instrument Rules</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>{collectionExerciseDetails}</TableBody>
               </Table>
             </TableContainer>
-            {this.state.collectionInstrumentRulesDisplayed && (
-              <Dialog open={true}>
-                <DialogContent style={{ padding: 30 }}>
-                  <JSONPretty
-                    id="json-pretty"
-                    data={
-                      this.state.collectionExerciseDetails
-                        .collectionInstrumentSelectionRules
-                    }
-                    style={{
-                      overflowY: "scroll",
-                      margin: 10,
-                      maxHeight: 500,
-                    }}
-                  />
-                  <div>
-                    <Button
-                      onClick={this.closeCollectionInstrumentRulesDialog}
-                      variant="contained"
-                      style={{ margin: 10, padding: 10 }}
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
           </div>
         )}
         {this.state.authorisedActivities.includes("LIST_ACTION_RULES") && (
@@ -912,16 +848,6 @@ class CollectionExerciseDetails extends Component {
                         {smsPackCodeMenuItems}
                       </Select>
                     </FormControl>
-                    <FormControl required fullWidth={true}>
-                      <InputLabel>Phone Number Column</InputLabel>
-                      <Select
-                        onChange={this.onNewActionRuleSmsPhoneNumberChange}
-                        value={this.state.newActionRuleSmsPhoneNumberColumn}
-                        error={this.state.smsPhoneNumberColumnValidationError}
-                      >
-                        {sensitiveSampleColumnsMenuItems}
-                      </Select>
-                    </FormControl>
                     <FormControl fullWidth={true}>
                       <TextField
                         style={{ minWidth: 200 }}
@@ -944,17 +870,6 @@ class CollectionExerciseDetails extends Component {
                         id="selectActionRuleEmailPackCode"
                       >
                         {emailPackCodeMenuItems}
-                      </Select>
-                    </FormControl>
-                    <FormControl required fullWidth={true}>
-                      <InputLabel>Email Column</InputLabel>
-                      <Select
-                        onChange={this.onNewActionRuleEmailChange}
-                        value={this.state.newActionRuleEmailColumn}
-                        error={this.state.emailColumnValidationError}
-                        id="selectActionRuleEmailColumn"
-                      >
-                        {sensitiveSampleColumnsMenuItems}
                       </Select>
                     </FormControl>
                     <FormControl fullWidth={true}>

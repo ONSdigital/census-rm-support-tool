@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import uk.gov.ons.census.common.model.entity.Survey;
 import uk.gov.ons.census.common.model.entity.UserGroupAuthorisedActivityType;
-import uk.gov.ons.census.common.validation.ColumnValidators;
 import uk.gov.ons.census.supporttool.model.dto.ui.SurveyDto;
 import uk.gov.ons.census.supporttool.model.repository.SurveyRepository;
 import uk.gov.ons.census.supporttool.security.AuthUser;
@@ -53,7 +52,6 @@ public class SurveyEndpoint {
     surveyDto.setId(survey.getId());
     surveyDto.setName(survey.getName());
     surveyDto.setSampleSeparator(survey.getSampleSeparator());
-    surveyDto.setSampleValidationRules(survey.getSampleValidationRules());
     surveyDto.setSampleWithHeaderRow(survey.isSampleWithHeaderRow());
     surveyDto.setSampleDefinitionUrl(survey.getSampleDefinitionUrl());
     surveyDto.setMetadata(survey.getMetadata());
@@ -95,7 +93,6 @@ public class SurveyEndpoint {
     survey.setId(UUID.randomUUID());
     survey.setName(surveyDto.getName());
     survey.setSampleSeparator(surveyDto.getSampleSeparator());
-    survey.setSampleValidationRules(ColumnValidators.getValidators());
     survey.setSampleWithHeaderRow(surveyDto.isSampleWithHeaderRow());
     survey.setSampleDefinitionUrl(surveyDto.getSampleDefinitionUrl());
     survey.setMetadata(surveyDto.getMetadata());
