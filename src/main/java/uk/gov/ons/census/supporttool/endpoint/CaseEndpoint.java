@@ -71,7 +71,29 @@ public class CaseEndpoint {
     caseDto.setInvalid(caze.isInvalid());
     caseDto.setCreatedAt(caze.getCreatedAt());
     caseDto.setLastUpdatedAt(caze.getLastUpdatedAt());
-    caseDto.setSample(caze.getSample());
+    caseDto.setTreatmentCode(caze.getTreatmentCode());
+    caseDto.setUprn(caze.getUprn());
+    caseDto.setEstabUprn(caze.getEstabUprn());
+    caseDto.setEstabType(caze.getEstabType());
+    caseDto.setAddressLine1(caze.getAddressLine1());
+    caseDto.setTownName(caze.getTownName());
+    caseDto.setRegion(caze.getRegion());
+    caseDto.setPostcode(caze.getPostcode());
+    caseDto.setAddressType(caze.getAddressType());
+    caseDto.setAddressLevel(caze.getAddressLevel());
+    caseDto.setAbpCode(caze.getAbpCode());
+    caseDto.setFieldCoordinatorId(caze.getFieldCoordinatorId());
+    caseDto.setFieldOfficerId(caze.getFieldOfficerId());
+    caseDto.setOa(caze.getOa());
+    caseDto.setLsoa(caze.getLsoa());
+    caseDto.setMsoa(caze.getMsoa());
+    caseDto.setLad(caze.getLad());
+    caseDto.setHtcDigital(caze.getHtcDigital());
+    caseDto.setHtcWillingness(caze.getHtcWillingness());
+    caseDto.setLatitude(caze.getLatitude());
+    caseDto.setLongitude(caze.getLongitude());
+    caseDto.setPrintBatch(caze.getPrintBatch());
+    caseDto.setSecureEstablishment(caze.isSecureEstablishment());
 
     List<EventDto> events = new LinkedList<>();
     for (Event event : caze.getEvents()) {

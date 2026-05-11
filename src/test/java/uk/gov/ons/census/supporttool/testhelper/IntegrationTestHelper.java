@@ -261,7 +261,6 @@ public class IntegrationTestHelper {
     uacQidLink.setUac("TEST_UAC_" + UUID.randomUUID());
     uacQidLink.setUacHash("test fake hash");
     uacQidLink.setCaze(caze);
-    uacQidLink.setCollectionInstrumentUrl("test instrument url");
     uacQidLink = uacQidLinkRepository.saveAndFlush(uacQidLink);
 
     ExportFileTemplate exportFileTemplate = new ExportFileTemplate();
@@ -298,7 +297,6 @@ public class IntegrationTestHelper {
     actionRule.setId(UUID.randomUUID());
     actionRule.setCollectionExercise(collectionExercise);
     actionRule.setType(ActionRuleType.EMAIL);
-    actionRule.setClassifiers("sample ->> 'ORG_SIZE' = 'HUGE'");
     actionRule.setTriggerDateTime(OffsetDateTime.now());
     actionRule.setCreatedBy("TEST_USER");
     actionRule.setEmailTemplate(emailTemplate);
