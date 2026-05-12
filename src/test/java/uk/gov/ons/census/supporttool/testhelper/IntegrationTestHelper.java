@@ -217,7 +217,6 @@ public class IntegrationTestHelper {
     survey.setName("Test");
     survey.setSampleWithHeaderRow(true);
     survey.setSampleSeparator(',');
-    survey.setSampleDefinitionUrl("http://foo.bar");
     survey = surveyRepository.saveAndFlush(survey);
 
     CollectionExercise collectionExercise = new CollectionExercise();

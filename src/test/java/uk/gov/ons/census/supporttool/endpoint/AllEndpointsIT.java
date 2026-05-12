@@ -429,7 +429,6 @@ class AllEndpointsIT {
           SurveyDto surveyDto = new SurveyDto();
           surveyDto.setName("Test");
           surveyDto.setSampleSeparator(',');
-          surveyDto.setSampleDefinitionUrl("http://foo.bar");
           return surveyDto;
         });
   }

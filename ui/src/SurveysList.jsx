@@ -29,11 +29,9 @@ class SurveysList extends Component {
     validationError: false,
     newSurveyName: "",
     surveyMetadataError: false,
-    newSurveySampleDefinitionUrl: "",
     newSurveyMetadata: "",
     newSurveyHeaderRow: true,
     newSurveySampleSeparator: ",",
-    sampleDefinitionUrlError: false,
     authorisedActivities: [],
   };
 
@@ -65,9 +63,7 @@ class SurveysList extends Component {
       createSurveyDialogDisplayed: true,
       newSurveyHeaderRow: true,
       newSurveySampleSeparator: ",",
-      sampleDefinitionUrlError: false,
       surveyMetadataError: false,
-      newSurveySampleDefinitionUrl: "",
       newSurveyMetadata: "",
     });
   };
@@ -82,14 +78,6 @@ class SurveysList extends Component {
     this.setState({
       validationError: resetValidation,
       newSurveyName: event.target.value,
-    });
-  };
-
-  onNewSurveySampleDefinitionUrlChange = (event) => {
-    const resetValidation = !event.target.value.trim();
-    this.setState({
-      sampleDefinitionUrlError: resetValidation,
-      newSurveySampleDefinitionUrl: event.target.value,
     });
   };
 
@@ -123,11 +111,6 @@ class SurveysList extends Component {
       validationFailed = true;
     }
 
-    if (!this.state.newSurveySampleDefinitionUrl.trim()) {
-      this.setState({ sampleDefinitionUrlError: true });
-      validationFailed = true;
-    }
-
     let metadataJson = null;
     if (this.state.newSurveyMetadata.length > 0) {
       try {
@@ -153,7 +136,6 @@ class SurveysList extends Component {
       name: this.state.newSurveyName,
       sampleWithHeaderRow: this.state.newSurveyHeaderRow,
       sampleSeparator: this.state.newSurveySampleSeparator,
-      sampleDefinitionUrl: this.state.newSurveySampleDefinitionUrl,
       metadata: metadataJson,
     };
 
@@ -178,11 +160,6 @@ class SurveysList extends Component {
       <TableRow key={survey.name}>
         <TableCell component="th" scope="row">
           <Link to={`/survey?surveyId=${survey.id}`}>{survey.name}</Link>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          <a href={survey.sampleDefinitionUrl} target="_blank" rel="noreferrer">
-            {survey.sampleDefinitionUrl}
-          </a>
         </TableCell>
         <TableCell component="th" scope="row">
           {JSON.stringify(survey.metadata)}
@@ -264,17 +241,6 @@ class SurveysList extends Component {
                     <MenuItem value={"|"}>Pipe</MenuItem>
                   </Select>
                 </FormControl>
-                <TextField
-                  id="surveyDefinitionURLTextField"
-                  style={{ marginTop: 10 }}
-                  required
-                  multiline
-                  fullWidth={true}
-                  error={this.state.sampleDefinitionUrlError}
-                  label="Survey Definition URL"
-                  onChange={this.onNewSurveySampleDefinitionUrlChange}
-                  value={this.state.newSurveySampleDefinitionUrl}
-                />
                 <TextField
                   id="metadataTextField"
                   style={{ marginTop: 10 }}

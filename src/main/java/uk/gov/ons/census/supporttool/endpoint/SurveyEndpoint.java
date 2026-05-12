@@ -53,7 +53,6 @@ public class SurveyEndpoint {
     surveyDto.setName(survey.getName());
     surveyDto.setSampleSeparator(survey.getSampleSeparator());
     surveyDto.setSampleWithHeaderRow(survey.isSampleWithHeaderRow());
-    surveyDto.setSampleDefinitionUrl(survey.getSampleDefinitionUrl());
     surveyDto.setMetadata(survey.getMetadata());
     return surveyDto;
   }
@@ -94,7 +93,6 @@ public class SurveyEndpoint {
     survey.setName(surveyDto.getName());
     survey.setSampleSeparator(surveyDto.getSampleSeparator());
     survey.setSampleWithHeaderRow(surveyDto.isSampleWithHeaderRow());
-    survey.setSampleDefinitionUrl(surveyDto.getSampleDefinitionUrl());
     survey.setMetadata(surveyDto.getMetadata());
     survey = surveyRepository.saveAndFlush(survey);
 

@@ -70,9 +70,6 @@ class SurveyDetails extends Component {
           {JSON.stringify(this.state.surveyDetails.metadata)}
         </TableCell>
         <TableCell component="th" scope="row">
-          {this.state.surveyDetails.sampleDefinitionUrl}
-        </TableCell>
-        <TableCell component="th" scope="row">
           {this.state.surveyDetails.sampleWithHeaderRow ? "YES" : "NO"}
         </TableCell>
         <TableCell component="th" scope="row">
@@ -105,7 +102,6 @@ class SurveyDetails extends Component {
                   <TableRow>
                     <TableCell>ID</TableCell>
                     <TableCell>Metadata</TableCell>
-                    <TableCell>Sample Definition URL</TableCell>
                     <TableCell>Sample With Header Row</TableCell>
                     <TableCell>Sample Separator</TableCell>
                   </TableRow>

@@ -9,6 +9,5 @@ public class SurveyDto {
   private String name;
   private boolean sampleWithHeaderRow;
   private char sampleSeparator;
-  private String sampleDefinitionUrl;
   private Object metadata;
 }

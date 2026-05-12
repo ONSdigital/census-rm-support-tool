@@ -54,7 +54,6 @@ public class SurveyEndpointIT {
             SurveyDto surveyDto = new SurveyDto();
             surveyDto.setName("Test New Survey");
             surveyDto.setSampleSeparator(',');
-            surveyDto.setSampleDefinitionUrl("http://foo.bar");
             surveyDto.setMetadata(Map.of("foo", "bar"));
             return surveyDto;
           });
@@ -70,8 +69,6 @@ public class SurveyEndpointIT {
           .isEqualTo(Map.of("foo", "bar"));
       RecursiveComparisonConfiguration configuration =
           RecursiveComparisonConfiguration.builder().build();
-      assertThat(emittedEvent.getPayload().getSurveyUpdate().getSampleDefinitionUrl())
-          .isEqualTo("http://foo.bar");
     }
   }
 }
