@@ -193,8 +193,7 @@ public class ActionRuleEndpoint {
                           HttpStatus.BAD_REQUEST,
                           "Failed to insert action rule, SMS template not found");
                     });
-        if (!getSurveyColumns(collectionExercise.getSurvey(), true)
-            .contains(actionRuleDTO.getPhoneNumberColumn())) {
+        if (!getSurveyColumns().contains(actionRuleDTO.getPhoneNumberColumn())) {
           log.atWarn()
               .setMessage("Failed to insert action rule, phone number column does not exist")
               .addKeyValue("requestedColumn", actionRuleDTO.getPhoneNumberColumn())
@@ -222,8 +221,7 @@ public class ActionRuleEndpoint {
                       return new ResponseStatusException(
                           HttpStatus.BAD_REQUEST, "Email template not found");
                     });
-        if (!getSurveyColumns(collectionExercise.getSurvey(), true)
-            .contains(actionRuleDTO.getEmailColumn())) {
+        if (!getSurveyColumns().contains(actionRuleDTO.getEmailColumn())) {
           log.atWarn()
               .setMessage("Failed to insert action rule, email column does not exist")
               .addKeyValue("requestedColumn", actionRuleDTO.getEmailColumn())
